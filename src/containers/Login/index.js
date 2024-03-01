@@ -4,14 +4,14 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import imgLogin from '../../assets/background-login.png';
-import apiHardware from '../../services/api';
+import Button from '../../components/Button';
+import api from '../../services/api';
 import {
   Container,
   ContainerImg,
   ContainerItens,
   Label,
   Input,
-  Button,
   Text,
   ErrorMessage
 } from './style';
@@ -37,7 +37,7 @@ export default function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async userData => {
-    const response = await apiHardware.post('sessions', {
+    const response = await api.post('/sessions', {
       email: userData.email,
       password: userData.password
     });

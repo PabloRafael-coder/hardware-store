@@ -43,22 +43,6 @@ export const Input = styled.input`
   background-color: rgb(240, 240, 240);
 `;
 
-export const Button = styled.button`
-  width: 10vw;
-  height: 52px;
-  border-radius: 10px;
-  border: none;
-  margin-top: 30px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 700;
-  background-color: #00bfff;
-
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
 export const Text = styled.p`
   margin-top: 20px;
   font-weight: 300;

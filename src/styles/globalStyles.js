@@ -4,7 +4,7 @@ export default createGlobalStyle`
 
     * {
         padding: 0;
-        margin: 0;
+        /* margin: 0; */
         box-sizing: border-box; 
         /*
         content-box (padrão): Neste modelo, o tamanho total do elemento é calculado considerando apenas o conteúdo (content). 
