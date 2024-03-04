@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-
+  height: 100vh;
   display: flex;
 `;
 
 export const ContainerImg = styled.img`
   object-fit: contain;
-  width: 45%;
+  width: 40%;
 `;
 
 export const ContainerItens = styled.div`

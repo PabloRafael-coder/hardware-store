@@ -19,6 +19,7 @@ import {
 
 const schema = yup
   .object({
+    name: yup.string().required('Digite o seu nome'),
     email: yup
       .string()
       .email('Digite um e-mail válido.')
@@ -26,11 +27,15 @@ const schema = yup
     password: yup
       .string()
       .required('A senha é obrigatória.')
-      .min(6, 'A senha deve ter pelo menos 6 digitos.')
+      .min(6, 'A senha deve ter pelo menos 6 digitos.'),
+    confirmPassword: yup
+      .string()
+      .required('Confirme a sua senha')
+      .oneOf([yup.ref('password')], 'As senhas devem ser iguais')
   })
   .required();
 
-export default function Login() {
+function Register() {
   const {
     register,
     handleSubmit,
@@ -38,24 +43,45 @@ export default function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async userData => {
-    await toast.promise(
-      api.post('/sessions', {
-        email: userData.email,
-        password: userData.password
-      }),
-      {
-        pending: 'Verificando seus dados',
-        success: 'Seja bem-vindo(a)!',
-        error: 'Seus dados estão incorretos'
+    try {
+      const { status } = await api.post(
+        '/users',
+        {
+          name: userData.name,
+          email: userData.email,
+          password: userData.password
+        },
+        { validateStatus: () => true }
+      );
+
+      if (status === 201 || status === 200) {
+        toast.success('Cadastro criado com sucesso.');
+      } else if (status === 409) {
+        toast.error('Email já cadastrado! Faça o login para continuar.');
+      } else {
+        throw new Error();
       }
-    );
+    } catch (error) {
+      toast.error('O sistema falhou, tente mais tarde!');
+    }
   };
+
   return (
     <Container>
       <ContainerImg src={imgLogin} />
       <ContainerItens>
-        <h1>Login</h1>
+        <h1>Cadastre-se</h1>
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <Label>Nome</Label>
+            <Input
+              type="text"
+              placeholder="Insira seu nome"
+              {...register('name')}
+              error={errors.name?.message}
+            ></Input>
+            <ErrorMessage>{errors.name?.message}</ErrorMessage>
+          </div>
           <div>
             <Label>Email</Label>
             <Input
@@ -76,12 +102,24 @@ export default function Login() {
             ></Input>
             <ErrorMessage>{errors.password?.message}</ErrorMessage>
           </div>
-          <Button type="submit">Sing in</Button>
+          <div>
+            <Label>Confirmar senha</Label>
+            <Input
+              type="password"
+              placeholder="Insira sua senha"
+              {...register('confirmPassword')}
+              error={errors.confirmPassword?.message}
+            ></Input>
+            <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
+          </div>
+          <Button type="submit">Sing up</Button>
         </form>
         <Text>
-          Não possui conta? <a>Sing up</a>
+          Já possui conta? <a>Sing in</a>
         </Text>
       </ContainerItens>
     </Container>
   );
 }
+
+export default Register;
