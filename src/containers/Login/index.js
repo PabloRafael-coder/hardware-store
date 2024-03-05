@@ -6,6 +6,7 @@ import * as yup from 'yup';
 
 import imgLogin from '../../assets/background-login.png';
 import Button from '../../components/Button';
+import { useUser } from '../../hooks/UserContext';
 import api from '../../services/api';
 import {
   Container,
@@ -31,6 +32,9 @@ const schema = yup
   .required();
 
 export default function Login() {
+  const user = useUser();
+
+  console.log(user);
   const {
     register,
     handleSubmit,
