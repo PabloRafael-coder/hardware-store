@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
@@ -32,20 +33,18 @@ const schema = yup
   .required();
 
 export default function Login() {
-  const user = useUser();
-
-  console.log(user);
+  const { putUserData, userData } = useUser();
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = async userData => {
-    await toast.promise(
+  const onSubmit = async Datas => {
+    const { data } = await toast.promise(
       api.post('/sessions', {
-        email: userData.email,
-        password: userData.password
+        email: Datas.email,
+        password: Datas.password
       }),
       {
         pending: 'Verificando seus dados',
@@ -53,6 +52,10 @@ export default function Login() {
         error: 'Seus dados estão incorretos'
       }
     );
+
+    putUserData(data);
+
+    console.log(userData);
   };
   return (
     <Container>
@@ -83,7 +86,10 @@ export default function Login() {
           <Button type="submit">Sing in</Button>
         </form>
         <Text>
-          Não possui conta? <a>Sing up</a>
+          Não possui conta?{' '}
+          <Link to={'/cadastro'} style={{ color: 'black' }}>
+            Sing up
+          </Link>
         </Text>
       </ContainerItens>
     </Container>

@@ -1,15 +1,28 @@
 import PropTypes from 'prop-types';
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
-  const user = {
-    name: 'Pablo Rafael',
-    age: 23
+  const [userData, setUserData] = useState({});
+
+  const putUserData = dataInfo => {
+    setUserData(dataInfo);
+
+    localStorage.setItem('hardware:user', JSON.stringify(dataInfo));
   };
 
-  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
+  useEffect(() => {
+    const responseStorage = localStorage.getItem('hardware:user');
+
+    console.log(JSON.parse(responseStorage));
+  }, []);
+
+  return (
+    <UserContext.Provider value={{ putUserData, userData }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export const useUser = () => {
@@ -18,6 +31,7 @@ export const useUser = () => {
   if (!context) {
     throw new Error('useUser must be used with UserContext');
   }
+  return context;
 };
 
 UserProvider.propTypes = {
