@@ -1,12 +1,10 @@
 import React from 'react';
-import {
-  Switch,
-  Route,
-  BrowserRouter as Router
-} from 'react-router-dom/cjs/react-router-dom.min';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom/';
 
+import Home from '../containers/Home';
 import Login from '../containers/Login';
 import Register from '../containers/Register';
+import PrivateRoute from './private-route';
 
 function Routes() {
   return (
@@ -14,6 +12,7 @@ function Routes() {
       <Switch>
         <Route component={Login} path="/login" />
         <Route component={Register} path="/cadastro" />
+        <PrivateRoute exact component={Home} path="/" />
       </Switch>
     </Router>
   );
