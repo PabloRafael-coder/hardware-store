@@ -2,13 +2,19 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-
   display: flex;
+  height: 100vh;
+  background-color: black;
 `;
 
-export const ContainerImg = styled.img`
+export const ContainerImg = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const Img = styled.img`
   object-fit: contain;
-  width: 45%;
+  width: 50%;
 `;
 
 export const ContainerItens = styled.div`
@@ -16,10 +22,12 @@ export const ContainerItens = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  background-color: white;
   padding: 20px 50px;
-  width: 100%;
+  width: 60%;
 
   h1 {
+    font-size: 40px;
     margin-bottom: 0;
     color: #00bfff;
   }

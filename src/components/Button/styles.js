@@ -9,6 +9,7 @@ export const ComponentButton = styled.button`
   font-size: 16px;
   font-weight: 700;
   background-color: #00bfff;
+  margin-top: 20px;
 
   &:hover {
     opacity: 0.8;

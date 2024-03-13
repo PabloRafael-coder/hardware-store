@@ -1,7 +1,13 @@
 import axios from 'axios';
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: 'http://localhost:3001'
 });
 
-export default api;
+api.interceptors.request.use(async config => {
+  const userData = localStorage.getItem('hardware:user');
+  const token = userData && JSON.parse(userData).token;
+
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});

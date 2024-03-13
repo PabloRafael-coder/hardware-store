@@ -1,14 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
-import imgLogin from '../../assets/background-login.png';
+import imgLogin from '../../assets/pc-messi_640x640+fill_ffffff.png';
 import Button from '../../components/Button';
 import { useUser } from '../../hooks/UserContext';
-import api from '../../services/api';
+import { api } from '../../services/api';
 import {
   Container,
   ContainerImg,
@@ -16,8 +16,9 @@ import {
   Label,
   Input,
   Text,
-  ErrorMessage
-} from './style';
+  ErrorMessage,
+  Img
+} from './styles';
 
 const schema = yup
   .object({
@@ -33,7 +34,9 @@ const schema = yup
   .required();
 
 export default function Login() {
-  const { putUserData, userData } = useUser();
+  const history = useHistory();
+
+  const { putUserData } = useUser();
   const {
     register,
     handleSubmit,
@@ -55,11 +58,15 @@ export default function Login() {
 
     putUserData(data);
 
-    console.log(userData);
+    setTimeout(() => {
+      history.push('/');
+    }, 1000);
   };
   return (
     <Container>
-      <ContainerImg src={imgLogin} />
+      <ContainerImg>
+        <Img src={imgLogin} />
+      </ContainerImg>
       <ContainerItens>
         <h1>Login</h1>
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
@@ -83,7 +90,9 @@ export default function Login() {
             ></Input>
             <ErrorMessage>{errors.password?.message}</ErrorMessage>
           </div>
-          <Button type="submit">Sing in</Button>
+          <Button style={{ marginTop: 75 }} type="submit">
+            Sing in
+          </Button>
         </form>
         <Text>
           Não possui conta?{' '}

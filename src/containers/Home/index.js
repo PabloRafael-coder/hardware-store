@@ -1,10 +1,16 @@
 import React from 'react';
 
+import LogoHome from '../../assets/home-logo.png';
+import Category from '../../components/Category';
+import { Container, ImgContainer, Headers } from './styles';
+
 function Home() {
   return (
-    <div>
-      <h1>Olá Pablo, parabéns pelo seu progresso!</h1>
-    </div>
+    <Container>
+      <Headers>TEXT</Headers>
+      <ImgContainer src={LogoHome} alt="Logo da página principal" />
+      <Category />
+    </Container>
   );
 }
 

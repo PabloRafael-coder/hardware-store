@@ -7,7 +7,7 @@ import * as yup from 'yup';
 
 import imgLogin from '../../assets/background-login.png';
 import Button from '../../components/Button';
-import api from '../../services/api';
+import { api } from '../../services/api';
 import {
   Container,
   ContainerImg,
@@ -16,7 +16,7 @@ import {
   Input,
   Text,
   ErrorMessage
-} from './style';
+} from './styles';
 
 const schema = yup
   .object({
