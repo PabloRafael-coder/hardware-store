@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export const ImgContainer = styled.img`
-  width: 80%;
-  height: auto;
-  object-fit: contain;
+  width: 100%;
+  height: 70vh;
 `;
 
 export const Headers = styled.header`

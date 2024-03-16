@@ -12,15 +12,26 @@ export const Container = styled.div`
 export const ContainerItens = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
   border: none;
-  padding: 15px;
   border-radius: 15px;
+  padding: 15px;
   width: 290px;
-  height: 300px;
+  height: 350px;
   background-color: #ffffff;
   margin: 15px;
+
+  p {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  span {
+    margin-top: 5px;
+    font-weight: 700;
+    font-size: 24px;
+    color: #ff8c00;
+  }
 `;
 
 export const Image = styled.img`
@@ -30,8 +41,13 @@ export const Image = styled.img`
   object-fit: contain;
 `;
 
+export const ContainerText = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Button = styled.button`
-  width: 150px;
+  width: 60%;
   padding: 10px;
   margin-bottom: 10px;
   border: none;

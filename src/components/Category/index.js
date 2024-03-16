@@ -26,8 +26,12 @@ function Category() {
 
   return (
     <Container>
-      <H1>Categoria</H1>
-      <Carousel itemsToShow={5} breakPoints={breakpoints}>
+      <H1>Categorias</H1>
+      <Carousel
+        itemsToShow={5}
+        breakPoints={breakpoints}
+        style={{ width: '90%' }}
+      >
         {categories.map(category => (
           <ContainerItens key={category.id}>
             <Image src={category.url} />

@@ -13,9 +13,7 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const responseStorage = localStorage.getItem('hardware:user');
-
-    console.log(JSON.parse(responseStorage));
+    localStorage.getItem('hardware:user');
   }, []);
 
   return (
