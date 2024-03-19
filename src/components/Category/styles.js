@@ -16,9 +16,8 @@ export const ContainerItens = styled.div`
   justify-content: space-between;
   border: none;
   padding: 15px;
-  border-radius: 15px;
   width: 290px;
-  height: 300px;
+  height: 350px;
   background-color: #ffffff;
   margin: 15px;
 `;
