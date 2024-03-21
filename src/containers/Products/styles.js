@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  background-color: #d3d3d3;
+`;
 
 export const ContainerCategories = styled.div`
   display: flex;
@@ -25,4 +27,9 @@ export const ImgContainer = styled.img`
   height: 70vh;
 `;
 
-export const ContainerProducts = styled.div``;
+export const ContainerProducts = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 30px;
+  gap: 20px;
+`;

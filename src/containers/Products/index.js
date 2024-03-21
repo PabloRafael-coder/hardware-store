@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import LogoHome from '../../assets/home-logo.png';
+import CardProducts from '../../components/CardProducts';
 import Category from '../../components/Category';
 import { api } from '../../services/api';
 import {
@@ -32,8 +33,6 @@ function Product() {
     fetchCategories();
   }, []);
 
-  console.log(colorMenu);
-
   return (
     <Container>
       <ImgContainer src={LogoHome} alt="Logo da página principal" />
@@ -51,7 +50,11 @@ function Product() {
           </Button>
         ))}
       </ContainerCategories>
-      <ContainerProducts>{products.map(products => {})}</ContainerProducts>
+      <ContainerProducts>
+        {products.map(product => (
+          <CardProducts key={product.id} product={product} />
+        ))}
+      </ContainerProducts>
     </Container>
   );
 }
