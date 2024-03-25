@@ -2,19 +2,22 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   background-color: white;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 30px;
 `;
 
 export const ContainerItens = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: space-between;
   gap: 10px;
 `;
 
 export const Image = styled.img`
-  width: 50%;
+  width: 90%;
   object-fit: contain;
   border-radius: 10px;
 `;

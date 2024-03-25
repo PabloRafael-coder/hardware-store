@@ -12,7 +12,7 @@ import {
   ContainerText
 } from './styles';
 
-function Category() {
+export function Offer() {
   const [offer, setOffer] = useState([]);
   useEffect(() => {
     async function fetchCategories() {
@@ -54,5 +54,3 @@ function Category() {
     </Container>
   );
 }
-
-export default Category;

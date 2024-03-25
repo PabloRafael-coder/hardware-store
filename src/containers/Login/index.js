@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import imgLogin from '../../assets/pc-messi_640x640+fill_ffffff.png';
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 import { useUser } from '../../hooks/UserContext';
 import { api } from '../../services/api';
 import {
@@ -33,7 +33,7 @@ const schema = yup
   })
   .required();
 
-export default function Login() {
+export function Login() {
   const history = useHistory();
 
   const { putUserData } = useUser();

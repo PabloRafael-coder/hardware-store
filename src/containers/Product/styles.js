@@ -6,8 +6,16 @@ export const Container = styled.div`
 
 export const ContainerCategories = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 60px;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 5px;
+  gap: 2rem;
+`;
+
+export const ContainerMain = styled.div`
+  display: flex;
+  margin: 30px 0 0 30px;
 `;
 
 export const Button = styled.button`
@@ -17,7 +25,8 @@ export const Button = styled.button`
   font-weight: ${props => (props.isActiveColor ? '700' : '')};
   text-transform: uppercase;
   border-bottom: ${props => props.isActiveColor && '3px solid purple'};
-  color: ${props => (props.isActiveColor ? 'purple' : '')};
+  color: ${props => (props.isActiveColor ? '#ffffff' : '')};
+  background-color: ${props => props.isActiveColor && 'purple'};
   line-height: 40px;
   cursor: pointer;
 `;
@@ -29,7 +38,8 @@ export const ImgContainer = styled.img`
 
 export const ContainerProducts = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 30px;
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding: 0 30px;
+  justify-content: center;
 `;

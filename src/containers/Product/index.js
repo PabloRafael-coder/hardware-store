@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
 import LogoHome from '../../assets/home-logo.png';
-import CardProducts from '../../components/CardProducts';
-import Category from '../../components/Category';
+import { CardProducts } from '../../components/CardProducts';
 import { api } from '../../services/api';
 import {
   Container,
   ImgContainer,
   Button,
   ContainerCategories,
-  ContainerProducts
+  ContainerProducts,
+  ContainerMain
 } from './styles';
 
-function Product() {
+export function Product() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
-  const [filterProducts, setFilterProducts] = useState([]);
+  const [filterProduct, setFilterProduct] = useState([]);
   const [activeCategory, setActiveCategory] = useState(0);
   useEffect(() => {
     async function fetchCategories() {
@@ -36,40 +36,40 @@ function Product() {
 
   useEffect(() => {
     if (activeCategory === 0) {
-      setFilterProducts(products);
+      setFilterProduct(products);
     } else {
-      const filteredProduct = products.filter(
+      const filterProductCategory = products.filter(
         product => product.category_id === activeCategory
       );
-      console.log(filteredProduct);
-      setFilterProducts(filteredProduct);
+
+      setFilterProduct(filterProductCategory);
     }
   }, [activeCategory, products]);
 
   return (
     <Container>
       <ImgContainer src={LogoHome} alt="Logo da página principal" />
-      <ContainerCategories>
-        {categories.map(category => (
-          <Button
-            type="button"
-            key={category.id}
-            onClick={() => {
-              setActiveCategory(category.id);
-            }}
-            isActiveColor={activeCategory === category.id}
-          >
-            {category.name}
-          </Button>
-        ))}
-      </ContainerCategories>
-      <ContainerProducts>
-        {filterProducts.map(product => (
-          <CardProducts key={product.id} product={product} />
-        ))}
-      </ContainerProducts>
+      <ContainerMain>
+        <ContainerCategories>
+          {categories.map(category => (
+            <Button
+              type="button"
+              key={category.id}
+              onClick={() => {
+                setActiveCategory(category.id);
+              }}
+              isActiveColor={activeCategory === category.id}
+            >
+              {category.name}
+            </Button>
+          ))}
+        </ContainerCategories>
+        <ContainerProducts>
+          {filterProduct.map(product => (
+            <CardProducts key={product.id} product={product} />
+          ))}
+        </ContainerProducts>
+      </ContainerMain>
     </Container>
   );
 }
-
-export default Product;

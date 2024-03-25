@@ -1,11 +1,9 @@
 import React from 'react';
 
 import LogoHome from '../../assets/home-logo.png';
-import Category from '../../components/Category';
-import Offer from '../../components/Offer';
+import { Category, Offer } from '../../components';
 import { Container, ImgContainer } from './styles';
-
-function Home() {
+export function Home() {
   return (
     <Container>
       <ImgContainer src={LogoHome} alt="Logo da página principal" />
@@ -14,5 +12,3 @@ function Home() {
     </Container>
   );
 }
-
-export default Home;

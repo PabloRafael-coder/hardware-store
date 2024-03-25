@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import imgLogin from '../../assets/background-login.png';
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 import { api } from '../../services/api';
 import {
   Container,
@@ -36,7 +36,7 @@ const schema = yup
   })
   .required();
 
-function Register() {
+export function Register() {
   const {
     register,
     handleSubmit,
@@ -125,5 +125,3 @@ function Register() {
     </Container>
   );
 }
-
-export default Register;
