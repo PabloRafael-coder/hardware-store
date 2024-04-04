@@ -48,7 +48,7 @@ export function Product() {
 
   return (
     <Container>
-      <ImgContainer src={LogoHome} alt="Logo da página principal" />
+      <ImgContainer src={LogoHome} alt="Logo da página principal" />y
       <ContainerMain>
         <ContainerCategories>
           {categories.map(category => (
@@ -64,11 +64,13 @@ export function Product() {
             </Button>
           ))}
         </ContainerCategories>
-        <ContainerProducts>
-          {filterProduct.map(product => (
-            <CardProducts key={product.id} product={product} />
-          ))}
-        </ContainerProducts>
+        <div>
+          <ContainerProducts>
+            {filterProduct.map(product => (
+              <CardProducts key={product.id} product={product} />
+            ))}
+          </ContainerProducts>
+        </div>
       </ContainerMain>
     </Container>
   );

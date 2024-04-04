@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { ComponentButton } from './styles';
+import { ButtonStyled } from './styles';
 
-export function Button({ children }, ...rest) {
-  return <ComponentButton {...rest}>{children}</ComponentButton>;
+export function Button({ children, ...rest }) {
+  return <ButtonStyled {...rest}>{children}</ButtonStyled>;
 }
 
 Button.propTypes = {
-  children: PropTypes.string
+  children: PropTypes.object,
+  onClick: PropTypes.object
 };

@@ -4,7 +4,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   background-color: white;
   padding: 30px;
 `;
@@ -32,3 +31,5 @@ export const PriceProduct = styled.p`
   font-weight: 700;
   color: orange;
 `;
+
+export const Button = styled.button``;

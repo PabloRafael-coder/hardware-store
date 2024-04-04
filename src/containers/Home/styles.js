@@ -8,7 +8,6 @@ export const Container = styled.div`
 
 export const ImgContainer = styled.img`
   width: 100%;
-  height: 70vh;
 `;
 
 export const Headers = styled.header`
