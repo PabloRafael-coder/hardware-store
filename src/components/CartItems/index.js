@@ -5,7 +5,7 @@ import { formatCurrency } from '../../utils/currency';
 import { Container, Header, Body, Empty } from './styles';
 
 export function CartItems() {
-  const { cartProducts, addQuantityProduct } = useCart();
+  const { cartProducts, increaseProduct, decreaseProduct } = useCart();
   return (
     <Container>
       <Header>
@@ -23,9 +23,14 @@ export function CartItems() {
             <p>{product.name}</p>
             <p>{formatCurrency(product.price)}</p>
             <div className="quantifyGrid">
-              <button className="ButtonNegative">-</button>
+              <button
+                className="ButtonNegative"
+                onClick={() => decreaseProduct(product.id)}
+              >
+                -
+              </button>
               <p>{product.quantify}</p>
-              <button onClick={() => addQuantityProduct(product.id)}>+</button>
+              <button onClick={() => increaseProduct(product.id)}>+</button>
             </div>
 
             <p>{formatCurrency(product.price * product.quantify)}</p>

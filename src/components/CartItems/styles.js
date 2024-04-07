@@ -1,21 +1,24 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: #ffffff;
-  padding: 10px;
-  width: 90%;
-  margin: auto;
   display: flex;
   flex-direction: column;
+  width: 90%;
+  padding: 10px;
+  margin: auto;
+  margin-top: 30px;
   gap: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
 `;
 
 export const Header = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   text-align: center;
+  font-weight: 700;
   padding: 10px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #e3e3e3;
 `;
 
 export const Body = styled.div`

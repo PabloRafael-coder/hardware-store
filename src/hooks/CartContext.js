@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
+const updateLocalStorage = async product => {
+  localStorage.setItem('hardware:cartInfo', JSON.stringify(product));
+};
+
 const CartContext = createContext({});
 
 export const CartProvider = ({ children }) => {
@@ -23,7 +27,7 @@ export const CartProvider = ({ children }) => {
       setCartProducts(newCartProducts);
     }
 
-    localStorage.setItem('hardware:cartInfo', JSON.stringify(newCartProducts));
+    updateLocalStorage(newCartProducts);
   };
 
   useEffect(() => {
@@ -37,7 +41,7 @@ export const CartProvider = ({ children }) => {
     loadUserData();
   }, []);
 
-  const addQuantityProduct = async productId => {
+  const increaseProduct = async productId => {
     const addProduct = cartProducts.map(product => {
       return productId === product.id
         ? { ...product, quantify: product.quantify + 1 }
@@ -45,12 +49,44 @@ export const CartProvider = ({ children }) => {
     });
 
     setCartProducts(addProduct);
-    localStorage.setItem('hardware:cartInfo', JSON.stringify(addProduct));
+    updateLocalStorage(addProduct);
+  };
+
+  const deleteProductCart = async productId => {
+    const productFiltered = cartProducts.filter(
+      product => product.id !== productId
+    );
+    setCartProducts(productFiltered);
+    updateLocalStorage(productFiltered);
+  };
+
+  const decreaseProduct = async productId => {
+    const indexProduct = cartProducts.findIndex(
+      product => product.id === productId
+    );
+
+    if (cartProducts[indexProduct].quantify > 1) {
+      const newProduct = cartProducts.map(product => {
+        return product.id === productId
+          ? { ...product, quantify: product.quantify - 1 }
+          : product;
+      });
+
+      setCartProducts(newProduct);
+      updateLocalStorage(newProduct);
+    } else {
+      deleteProductCart(productId);
+    }
   };
 
   return (
     <CartContext.Provider
-      value={{ putProductInCart, cartProducts, addQuantityProduct }}
+      value={{
+        putProductInCart,
+        cartProducts,
+        increaseProduct,
+        decreaseProduct
+      }}
     >
       {children}
     </CartContext.Provider>
