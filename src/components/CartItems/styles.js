@@ -3,10 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 50%;
   padding: 10px;
-  margin: auto;
-  margin-top: 30px;
   gap: 20px;
   border-radius: 10px;
   background-color: #ffffff;
@@ -24,12 +22,11 @@ export const Header = styled.div`
 export const Body = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  width: max-content;
+  border-bottom: 1px solid #e3e3e3;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 10px;
-  width: 100%;
 
   img {
     width: 150px;

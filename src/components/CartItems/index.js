@@ -32,7 +32,6 @@ export function CartItems() {
               <p>{product.quantify}</p>
               <button onClick={() => increaseProduct(product.id)}>+</button>
             </div>
-
             <p>{formatCurrency(product.price * product.quantify)}</p>
           </Body>
         ))

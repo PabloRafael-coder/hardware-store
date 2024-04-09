@@ -42,6 +42,6 @@ export const ContainerProducts = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 15rem);
   gap: 30px;
-  padding: 0 30px;
+  padding: 30px;
   justify-content: center;
 `;
