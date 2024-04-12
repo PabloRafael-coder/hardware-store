@@ -4,3 +4,4 @@ export * from './Category';
 export * from './Offer';
 export * from './CartItems';
 export * from './CartResume';
+export * from './Header';
