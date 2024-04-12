@@ -20,7 +20,7 @@ export function CartItems() {
         cartProducts.map(product => (
           <Body key={product.id}>
             <img src={product.url}></img>
-            <p>{product.name}</p>
+            <p className="product-name">{product.name}</p>
             <p>{formatCurrency(product.price)}</p>
             <div className="quantifyGrid">
               <button
@@ -29,10 +29,10 @@ export function CartItems() {
               >
                 -
               </button>
-              <p>{product.quantify}</p>
+              <p>{product.quantity}</p>
               <button onClick={() => increaseProduct(product.id)}>+</button>
             </div>
-            <p>{formatCurrency(product.price * product.quantify)}</p>
+            <p>{formatCurrency(product.price * product.quantity)}</p>
           </Body>
         ))
       ) : (

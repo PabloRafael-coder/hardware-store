@@ -32,6 +32,16 @@ export const Body = styled.div`
     width: 150px;
   }
 
+  .product-name {
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-weight: 700;
+  }
+
   .quantifyGrid {
     display: flex;
     justify-content: center;

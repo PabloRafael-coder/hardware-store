@@ -12,23 +12,24 @@ export const CartProvider = ({ children }) => {
 
   const putProductInCart = async product => {
     const cartIndex = cartProducts.findIndex(prod => prod.id === product.id);
-
     let newCartProducts = [];
 
     if (cartIndex >= 0) {
       newCartProducts = cartProducts;
 
-      newCartProducts[cartIndex].quantify =
-        newCartProducts[cartIndex].quantify + 1;
+      newCartProducts[cartIndex].quantity =
+        newCartProducts[cartIndex].quantity + 0;
       setCartProducts(newCartProducts);
     } else {
-      product.quantify = 1;
+      product.quantity = 1;
       newCartProducts = [...cartProducts, product];
       setCartProducts(newCartProducts);
     }
 
     updateLocalStorage(newCartProducts);
   };
+
+  console.log(cartProducts);
 
   useEffect(() => {
     const loadUserData = async () => {
@@ -44,7 +45,7 @@ export const CartProvider = ({ children }) => {
   const increaseProduct = async productId => {
     const addProduct = cartProducts.map(product => {
       return productId === product.id
-        ? { ...product, quantify: product.quantify + 1 }
+        ? { ...product, quantity: product.quantity + 1 }
         : product;
     });
 
@@ -65,10 +66,10 @@ export const CartProvider = ({ children }) => {
       product => product.id === productId
     );
 
-    if (cartProducts[indexProduct].quantify > 1) {
+    if (cartProducts[indexProduct].quantity > 1) {
       const newProduct = cartProducts.map(product => {
         return product.id === productId
-          ? { ...product, quantify: product.quantify - 1 }
+          ? { ...product, quantity: product.quantity - 1 }
           : product;
       });
 
