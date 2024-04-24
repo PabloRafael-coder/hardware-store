@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
 import LogoHome from '../../assets/home-logo.png';
@@ -12,11 +13,18 @@ import {
   ContainerMain
 } from './styles';
 
-export function Product() {
+export function Product({ location: { state } }) {
+  let categoryId = 0;
+
+  if (state?.categoryId) {
+    categoryId = state.categoryId;
+  }
+
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [filterProduct, setFilterProduct] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(0);
+  const [activeCategory, setActiveCategory] = useState(categoryId);
+
   useEffect(() => {
     async function fetchCategories() {
       const { data } = await api.get('categories');
@@ -48,7 +56,7 @@ export function Product() {
 
   return (
     <Container>
-      <ImgContainer src={LogoHome} alt="Logo da página principal" />y
+      <ImgContainer src={LogoHome} alt="Logo da página principal" />
       <ContainerMain>
         <ContainerCategories>
           {categories.map(category => (
@@ -75,3 +83,7 @@ export function Product() {
     </Container>
   );
 }
+
+Product.propTypes = {
+  location: PropTypes.object
+};

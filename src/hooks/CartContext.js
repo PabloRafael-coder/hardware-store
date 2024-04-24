@@ -29,8 +29,6 @@ export const CartProvider = ({ children }) => {
     updateLocalStorage(newCartProducts);
   };
 
-  console.log(cartProducts);
-
   useEffect(() => {
     const loadUserData = async () => {
       const clientCartData = localStorage.getItem('hardware:cartInfo');

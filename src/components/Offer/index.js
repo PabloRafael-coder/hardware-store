@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
+import { useHistory } from 'react-router-dom';
 
+import { useCart } from '../../hooks/CartContext';
 import { api } from '../../services/api';
 import { formatCurrency } from '../../utils/currency';
 import {
@@ -13,6 +15,8 @@ import {
 } from './styles';
 
 export function Offer() {
+  const { putProductInCart } = useCart();
+  const { push } = useHistory();
   const [offer, setOffer] = useState([]);
   useEffect(() => {
     async function fetchCategories() {
@@ -47,7 +51,14 @@ export function Offer() {
               <p>{products.name}</p>
               <span>{formatCurrency(products.price)}</span>
             </ContainerText>
-            <Button>Comprar</Button>
+            <Button
+              onClick={() => {
+                putProductInCart(products);
+                push('/carrinho');
+              }}
+            >
+              Comprar
+            </Button>
           </ContainerItens>
         ))}
       </Carousel>

@@ -35,7 +35,11 @@ export function Category() {
         {categories.map(category => (
           <ContainerItens key={category.id}>
             <Image src={category.url} />
-            <Button>{category.name}</Button>
+            <Button
+              to={{ pathname: '/produtos', state: { categoryId: category.id } }}
+            >
+              {category.name}
+            </Button>
           </ContainerItens>
         ))}
       </Carousel>

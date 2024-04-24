@@ -55,12 +55,15 @@ export function Login() {
         error: 'Seus dados estão incorretos'
       }
     );
-
     putUserData(data);
 
     setTimeout(() => {
-      history.push('/');
-    }, 1000);
+      if (data.admin) {
+        history.push('/pedidos');
+      } else {
+        history.push('/');
+      }
+    }, 2000);
   };
   return (
     <Container>

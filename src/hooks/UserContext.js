@@ -13,11 +13,20 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    localStorage.getItem('hardware:user');
+    const getUserStorage = () => {
+      const userStorage = localStorage.getItem('hardware:user');
+      setUserData(JSON.parse(userStorage));
+    };
+
+    getUserStorage();
   }, []);
 
+  const logout = async () => {
+    localStorage.removeItem('hardware:user');
+  };
+
   return (
-    <UserContext.Provider value={{ putUserData, userData }}>
+    <UserContext.Provider value={{ putUserData, userData, logout }}>
       {children}
     </UserContext.Provider>
   );
