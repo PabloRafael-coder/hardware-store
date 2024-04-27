@@ -58,12 +58,9 @@ export function Login() {
     putUserData(data);
 
     setTimeout(() => {
-      if (data.admin) {
-        history.push('/pedidos');
-      } else {
-        history.push('/');
-      }
-    }, 2000);
+      if (data.admin) history.push('/pedidos');
+      else history.push('/');
+    }, 1500);
   };
   return (
     <Container>

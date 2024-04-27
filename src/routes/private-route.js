@@ -13,14 +13,13 @@ function PrivateRoute({ component, isAdmin, ...rest }) {
 
   if (isAdmin && !JSON.parse(user).admin) {
     return <Redirect to="/" />;
-  } else {
-    return (
-      <>
-        {!isAdmin && <Header />}
-        <Route {...rest} component={component} />
-      </>
-    );
   }
+  return (
+    <>
+      {!isAdmin && <Header />}
+      <Route {...rest} component={component} />
+    </>
+  );
 }
 export default PrivateRoute;
 
