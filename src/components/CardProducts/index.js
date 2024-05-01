@@ -3,7 +3,7 @@ import React from 'react';
 import { toast } from 'react-toastify';
 
 import { useCart } from '../../hooks/CartContext';
-import { formatCurrency } from '../../utils/currency';
+import { formatCurrency } from '../../utils/formatCurrency';
 import { Button } from '../Button';
 import {
   Container,

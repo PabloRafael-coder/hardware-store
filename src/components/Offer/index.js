@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useCart } from '../../hooks/CartContext';
 import { api } from '../../services/api';
-import { formatCurrency } from '../../utils/currency';
+import { formatCurrency } from '../../utils/formatCurrency';
 import {
   Container,
   H1,
