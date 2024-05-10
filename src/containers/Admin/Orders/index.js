@@ -18,6 +18,7 @@ function Orders() {
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [ordersInRows, setOrdersInRows] = useState([]);
   const [isActive, setIsActive] = useState(1);
+
   useEffect(() => {
     const fetchOrders = async () => {
       const { data } = await api.get('/orders');
@@ -42,20 +43,40 @@ function Orders() {
     setOrdersInRows(modifiedOrders);
   }, [filteredOrders]);
 
-  function handleOrders(status) {
+  useEffect(() => {
+    if (isActive === 1) {
+      setFilteredOrders(orders);
+    } else {
+      const statusIndex = status.findIndex(status => status.id === isActive);
+      const filteredOrders = orders.filter(
+        order => order.status === status[statusIndex].value
+      );
+      setFilteredOrders(filteredOrders);
+    }
+  }, [orders]);
+
+  function fetchOrdersFiltered(status) {
     if (status.id === 1) {
       setFilteredOrders(orders);
     } else {
-      const newOrder = orders.filter(order => order.status === status.id);
-      setFilteredOrders(newOrder);
+      const orderFiltered = orders.filter(
+        order => order.status === status.value
+      );
+      setFilteredOrders(orderFiltered);
     }
+
+    setIsActive(status.id);
   }
 
   return (
     <Container>
       <MenuStatus>
         {status.map(status => (
-          <LinkMenuStatus key={status.id} onClick={() => handleOrders(status)}>
+          <LinkMenuStatus
+            onClick={() => fetchOrdersFiltered(status)}
+            key={status.id}
+            isActive={isActive === status.id}
+          >
             {status.label}
           </LinkMenuStatus>
         ))}
@@ -73,7 +94,12 @@ function Orders() {
           </TableHead>
           <TableBody>
             {ordersInRows.map(row => (
-              <Row key={Row.orderId} row={row} />
+              <Row
+                key={Row.orderId}
+                row={row}
+                setOrders={setOrders}
+                orders={orders}
+              />
             ))}
           </TableBody>
         </Table>

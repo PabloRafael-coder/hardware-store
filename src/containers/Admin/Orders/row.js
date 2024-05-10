@@ -16,11 +16,22 @@ import { api } from '../../../services/api';
 import status from './order-status';
 import { ImageTable, ReactSelectStyles } from './styles';
 
-function Row({ row }) {
+function Row({ row, orders, setOrders }) {
   const [open, setOpen] = React.useState(false);
 
   async function setNewStatus(id, status) {
-    await api.put(`orders/${id}`, { status });
+    try {
+      await api.put(`orders/${id}`, { status });
+
+      const updatingOrders = orders.map(order => {
+        return order._id === id ? { ...order, status } : order;
+      });
+      setOrders(updatingOrders);
+    } catch (error) {
+      console.log(error);
+    }
+
+    console.log(orders);
   }
   return (
     <React.Fragment>
@@ -41,7 +52,7 @@ function Row({ row }) {
         <TableCell>{row.date}</TableCell>
         <TableCell>
           <ReactSelectStyles
-            options={status}
+            options={status.filter(status => status.id !== 1)}
             menuPortalTarget={document.body}
             placeholder="Status"
             defaultValue={status.find(options => options.value === row.status)}
@@ -94,6 +105,8 @@ function Row({ row }) {
 }
 
 Row.propTypes = {
+  orders: PropTypes.array,
+  setOrders: PropTypes.func,
   row: PropTypes.shape({
     orderId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
