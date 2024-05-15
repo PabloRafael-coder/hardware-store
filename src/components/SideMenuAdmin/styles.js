@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 300px;
-  background-color: #00bfff;
+  min-width: 250px;
+  background-color: gray;
 
   hr {
     border: solid 1px #efefef;
@@ -18,7 +18,8 @@ export const ItemContainer = styled.div`
   padding: 10px;
   margin: 15px;
   border-radius: 5px;
-  background-color: rgb(169, 169, 169, 0.8);
+  background-color: ${props =>
+    props.isActive ? 'rgb(169, 169, 169, 0.8)' : 'none'};
 `;
 
 export const MenuNav = styled(Link)`
