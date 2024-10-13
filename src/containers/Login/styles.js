@@ -60,10 +60,3 @@ export const Text = styled.p`
     cursor: pointer;
   }
 `;
-
-export const ErrorMessage = styled.p`
-  margin-top: 3px;
-  font-weight: 500;
-  font-size: 15px;
-  color: #ff0000;
-`;

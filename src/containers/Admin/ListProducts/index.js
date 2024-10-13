@@ -8,7 +8,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
+import paths from '../../../constants/paths';
 import { api } from '../../../services/api';
 import { formatCurrency } from '../../../utils/formatCurrency';
 import {
@@ -19,6 +21,7 @@ import {
 } from './styles';
 
 function ListProducts() {
+  const { push } = useHistory();
   const [products, setProducts] = useState([]);
   useEffect(() => {
     async function loadProducts() {
@@ -34,6 +37,10 @@ function ListProducts() {
       return <CheckBoxIcon style={{ color: '#006400' }} />;
     }
     return <DisabledByDefaultRoundedIcon style={{ color: '#8B0000' }} />;
+  }
+
+  function editProduct(product) {
+    push(paths.EditProduct, { product });
   }
 
   return (
@@ -69,7 +76,11 @@ function ListProducts() {
                     <ProductImage src={product.url} />
                   </TableCell>
                   <TableCell>
-                    <EditSharpIconStyles />
+                    <EditSharpIconStyles
+                      onClick={() => {
+                        editProduct(product);
+                      }}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import imgLogin from '../../assets/pc-messi_640x640+fill_ffffff.png';
-import { Button } from '../../components/Button';
+import { Button, ErrorMessage } from '../../components';
 import { useUser } from '../../hooks/UserContext';
 import { api } from '../../services/api';
 import {
@@ -16,7 +16,6 @@ import {
   Label,
   Input,
   Text,
-  ErrorMessage,
   Img
 } from './styles';
 

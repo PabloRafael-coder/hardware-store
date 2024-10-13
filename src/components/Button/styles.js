@@ -8,4 +8,8 @@ export const ButtonStyled = styled.button`
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;

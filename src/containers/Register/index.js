@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import imgLogin from '../../assets/background-login.png';
-import { Button } from '../../components/Button';
+import { Button, ErrorMessage } from '../../components';
 import { api } from '../../services/api';
 import {
   Container,
@@ -14,8 +14,7 @@ import {
   ContainerItens,
   Label,
   Input,
-  Text,
-  ErrorMessage
+  Text
 } from './styles';
 
 const schema = yup
