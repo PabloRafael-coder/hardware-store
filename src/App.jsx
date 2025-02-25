@@ -1,22 +1,18 @@
-import { ToastContainer } from 'react-toastify';
-
-import AppProvider from './hooks';
-import Routes from './routes/routes';
-import GlobalStyles from './styles/globalStyles';
-
+import AppProvider from './hooks'
+import Routes from './routes/routes'
+import GlobalStyles from './styles/globalStyles'
+import { Toaster } from 'sonner'
 
 function App() {
-  return(
+  return (
     <>
-    <AppProvider>
-      <Routes />
-    </AppProvider>
-    <GlobalStyles />
-    <ToastContainer autoClose={2000} />
-  </>
+      <Toaster autoClose={2000} />
+      <AppProvider>
+        <Routes />
+      </AppProvider>
+      <GlobalStyles />
+    </>
   )
 }
 
 export default App
-
-
