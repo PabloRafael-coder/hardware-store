@@ -6,7 +6,7 @@ import z from 'zod'
 
 import hardwareLogin from '../../assets/hardware-login.avif'
 import { Button } from '../../components/Button'
-import { useUser } from '../../hooks/UserContext/'
+import { useUser } from '../../hooks/UserContext'
 import { api } from '../../services/api'
 import {
   Container,
