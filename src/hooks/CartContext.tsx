@@ -6,7 +6,7 @@ import {
   type ReactNode,
 } from 'react'
 
-interface Cart {
+export interface Cart {
   id: number
   name: string
   offer: boolean

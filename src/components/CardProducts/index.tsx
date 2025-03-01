@@ -1,20 +1,23 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { toast } from 'react-toastify';
 
-import { useCart } from '../../hooks/CartContext';
+import { useCart, type Cart } from '../../hooks/CartContext';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { Button } from '../Button';
+
 import {
   Container,
   ContainerItens,
   Image,
   NameProduct,
   PriceProduct
-  // Button
 } from './styles';
 
-export function CardProducts({ product }) {
+interface CardProductsProps {
+  product: Cart
+}
+
+export function CardProducts({ product }: CardProductsProps) {
+
   const { putProductInCart } = useCart();
   const notifyAddProduct = () => {
     toast.success('Item adicionado ao carrinho');
@@ -38,7 +41,3 @@ export function CardProducts({ product }) {
     </Container>
   );
 }
-
-CardProducts.propTypes = {
-  product: PropTypes.object
-};
