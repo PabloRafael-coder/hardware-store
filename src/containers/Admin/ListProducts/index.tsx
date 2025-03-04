@@ -7,7 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import paths from '../../../constants/paths';
@@ -20,9 +20,21 @@ import {
   EditSharpIconStyles
 } from './styles';
 
+interface ProductsList {
+  id: number
+  name: string
+  price: number
+  url: string
+  offer: boolean
+
+}
+
 function ListProducts() {
   const { push } = useHistory();
-  const [products, setProducts] = useState([]);
+
+  const [products, setProducts] = useState<ProductsList []>([]);
+
+
   useEffect(() => {
     async function loadProducts() {
       const { data } = await api.get('products');
@@ -32,14 +44,14 @@ function ListProducts() {
     loadProducts();
   }, []);
 
-  function ChangeIconProductOffer(Offer) {
-    if (Offer) {
+  function ChangeIconProductOffer(offer : boolean) {
+    if (offer) {
       return <CheckBoxIcon style={{ color: '#006400' }} />;
     }
     return <DisabledByDefaultRoundedIcon style={{ color: '#8B0000' }} />;
   }
 
-  function editProduct(product) {
+  function editProduct(product: ProductsList) {
     push(paths.EditProduct, { product });
   }
 
