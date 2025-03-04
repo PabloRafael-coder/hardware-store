@@ -1,45 +1,51 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import ReactSelect from 'react-select';
 import { toast } from 'react-toastify';
-import * as Yup from 'yup';
 
 import { Button, ErrorMessage } from '../../../components';
 import { api } from '../../../services/api';
 import { Container, Label, Input, LabelUpload, InputUpload } from './styles';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const schemaNewProduct = z.object({
+  name: z.string(),
+  price: z.string(),
+  category: z.object({id: z.number(), name: z.string()}),
+  file: z.any()
+})
+
+interface Category {
+  id: number
+  name: string
+}
+
+type SchemaNewProductType = z.infer<typeof schemaNewProduct>
 
 function NewProduct() {
-  const [nameLabelUpload, setNameLabelUpload] = useState();
-  const [categories, setCategories] = useState();
+  const [nameLabelUpload, setNameLabelUpload] = useState<string | null>('');
+  const [categories, setCategories] = useState<Category[]>();
+  
   const { push } = useHistory();
-
-  const schema = Yup.object().shape({
-    name: Yup.string().required('Insira o nome do produto'),
-    price: Yup.string().required('Insira o valor do produto'),
-    category: Yup.object().required('Carregue a imagem do produto'),
-    file: Yup.mixed().test('required', 'Carregue uma imagem', value => {
-      return value?.length > 0;
-    })
-  });
 
   const {
     register,
     handleSubmit,
     control,
     formState: { errors }
-  } = useForm({
-    resolver: yupResolver(schema)
+  } = useForm<SchemaNewProductType>({
+    resolver: zodResolver(schemaNewProduct)
   });
 
-  const onSubmit = async data => {
+  async function handleNewProduct (data: SchemaNewProductType){
     const productDataForm = new FormData();
 
     productDataForm.append('name', data.name);
     productDataForm.append('price', data.price);
-    productDataForm.append('category_id', data.category.id);
+    productDataForm.append('category_id', JSON.stringify(data.category.id));
     productDataForm.append('file', data.file[0]);
 
     await toast.promise(api.post('products', productDataForm), {
@@ -63,7 +69,7 @@ function NewProduct() {
 
   return (
     <Container>
-      <form noValidate onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate onSubmit={handleSubmit(handleNewProduct)}>
         <div>
           <Label>Nome</Label>
           <Input type="text" {...register('name')} />
@@ -82,12 +88,12 @@ function NewProduct() {
               type="file"
               accept="imagem/png, imagem,jpeg"
               {...register('file')}
-              onChange={value =>
+              onChange={(value) => {
+                if (!value.target.files) return
                 setNameLabelUpload(value.target.files[0]?.name)
-              }
+              }}
             />
           </LabelUpload>
-          <ErrorMessage>{errors.file?.message}</ErrorMessage>
         </div>
         <div>
           <Controller
@@ -99,7 +105,7 @@ function NewProduct() {
                   {...field}
                   options={categories}
                   getOptionLabel={cat => cat.name}
-                  getOptionValue={cat => cat.id}
+                  getOptionValue={cat => cat.id.toString()}
                 />
               );
             }}
