@@ -1,11 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
+
 
 import { api } from '../../services/api';
 import { Container, H1, ContainerItens, Image, Button } from './styles';
 
+interface Category {
+  id: number
+  name: string
+  createdAt: string
+  url: string
+  path: string
+}
+
+
 export function Category() {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
   useEffect(() => {
     async function fetchCategories() {
       const { data } = await api.get('categories');
@@ -29,10 +40,10 @@ export function Category() {
       <H1>Categorias</H1>
       <Carousel
         itemsToShow={5}
-        breakPoints={breakpoints}
         style={{ width: '90%' }}
+        breakPoints={breakpoints}
       >
-        {categories.map(category => (
+        {categories && categories.map(category => (
           <ContainerItens key={category.id}>
             <Image src={category.url} />
             <Button
