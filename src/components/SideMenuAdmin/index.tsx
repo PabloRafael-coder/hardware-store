@@ -1,5 +1,4 @@
 import LogoutIcon from '@mui/icons-material/Logout';
-import PropTypes from 'prop-types';
 
 import { useUser } from '../../hooks/UserContext';
 import listNav from './menu-list';
@@ -32,6 +31,3 @@ export function SideMenuAdmin({ path }: SideMenuAdminProps) {
   );
 }
 
-SideMenuAdmin.propTypes = {
-  path: PropTypes.string
-};
