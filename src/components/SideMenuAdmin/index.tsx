@@ -1,12 +1,15 @@
 import LogoutIcon from '@mui/icons-material/Logout';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import { useUser } from '../../hooks/UserContext';
 import listNav from './menu-list';
 import { Container, ItemContainer, MenuNav } from './styles';
 
-export function SideMenuAdmin({ path }) {
+interface SideMenuAdminProps {
+  path: string
+}
+
+export function SideMenuAdmin({ path }: SideMenuAdminProps) {
   const { logout } = useUser();
   return (
     <Container>
