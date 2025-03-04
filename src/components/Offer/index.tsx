@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
 import { useHistory } from 'react-router-dom';
 
@@ -14,14 +14,26 @@ import {
   ContainerText
 } from './styles';
 
+interface ProductOffer {
+  id: number
+  name: string
+  offer: boolean
+  path: string
+  price: number
+  quantity: number
+  url: string
+  createdAt: string
+  updatedAt: string
+}
+
 export function Offer() {
   const { putProductInCart } = useCart();
   const { push } = useHistory();
-  const [offer, setOffer] = useState([]);
+  const [offer, setOffer] = useState<ProductOffer[]>([]);
+
   useEffect(() => {
     async function fetchCategories() {
-      const { data } = await api.get('products');
-
+      const { data } = await api.get<ProductOffer[]>('products');
       const offerTrue = data.filter(products => products.offer);
 
       setOffer(offerTrue);
