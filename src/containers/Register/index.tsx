@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -35,14 +34,16 @@ const schema = yup
   })
   .required();
 
+  type SignupFormSchema = yup.InferType<typeof schema>
+
 export function Register() {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm<SignupFormSchema>({ resolver: yupResolver(schema) });
 
-  const onSubmit = async userData => {
+  const onSubmit = async (userData: SignupFormSchema) => {
     try {
       const { status } = await api.post(
         '/users',
