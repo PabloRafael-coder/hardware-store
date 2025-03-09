@@ -1,22 +1,16 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import * as yup from 'yup'
 
-import imgLogin from '../../assets/background-login.png';
-import { Button, ErrorMessage } from '../../components';
-import { api } from '../../services/api';
-import {
-  Container,
-  ContainerImg,
-  ContainerItens,
-  Label,
-  Input,
-  Text
-} from './styles';
+import imgLogin from '../../assets/background-login.png'
 
-const schema = yup
+import { Button, ErrorMessage } from '../../components'
+import { api } from '../../services/api'
+
+import { SignUpContainer, FormContent, Label, Input, Text, NavSignIn } from './styles'
+
+const signUpFormSchema = yup
   .object({
     name: yup.string().required('Digite o seu nome'),
     email: yup
@@ -30,49 +24,51 @@ const schema = yup
     confirmPassword: yup
       .string()
       .required('Confirme a sua senha')
-      .oneOf([yup.ref('password')], 'As senhas devem ser iguais')
+      .oneOf([yup.ref('password')], 'As senhas devem ser iguais'),
   })
-  .required();
+  .required()
 
-  type SignupFormSchema = yup.InferType<typeof schema>
+type SignUpFormSchema = yup.InferType<typeof signUpFormSchema>
 
-export function Register() {
+export function SignUp() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
-  } = useForm<SignupFormSchema>({ resolver: yupResolver(schema) });
+    formState: { errors },
+  } = useForm<SignUpFormSchema>({ resolver: yupResolver(signUpFormSchema) })
 
-  const onSubmit = async (userData: SignupFormSchema) => {
+  async function handleSignUpForm(data: SignUpFormSchema) {
     try {
       const { status } = await api.post(
         '/users',
         {
-          name: userData.name,
-          email: userData.email,
-          password: userData.password
+          name: data.name,
+          email: data.email,
+          password: data.password,
         },
-        { validateStatus: () => true }
-      );
+        { validateStatus: () => true },
+      )
 
-      if (status === 201 || status === 200) {
-        toast.success('Cadastro criado com sucesso.');
-      } else if (status === 409) {
-        toast.error('Email já cadastrado! Faça o login para continuar.');
-      } else {
-        throw new Error();
+      switch (status) {
+        case 201:
+          toast.success('Cadastro criado com sucesso.')
+          break
+        case 409:
+          toast.error('Email já cadastrado! Faça login para continuar')
+          break
       }
+      
     } catch (error) {
-      toast.error('O sistema falhou, tente mais tarde!');
+      toast.error('O sistema falhou, tente novamente!')
     }
-  };
+  }
 
   return (
-    <Container>
-      <ContainerImg src={imgLogin} />
-      <ContainerItens>
+    <SignUpContainer>
+      <img src={imgLogin} alt="Imagem de login" />
+      <FormContent>
         <h1>Cadastre-se</h1>
-        <form noValidate onSubmit={handleSubmit(onSubmit)}>
+        <form noValidate onSubmit={handleSubmit(handleSignUpForm)}>
           <div>
             <Label>Nome</Label>
             <Input
@@ -80,7 +76,7 @@ export function Register() {
               placeholder="Insira seu nome"
               {...register('name')}
               error={errors.name?.message}
-            ></Input>
+            />
             <ErrorMessage>{errors.name?.message}</ErrorMessage>
           </div>
           <div>
@@ -90,7 +86,7 @@ export function Register() {
               placeholder="email@example.com"
               {...register('email')}
               error={errors.email?.message}
-            ></Input>
+            />
             <ErrorMessage>{errors.email?.message}</ErrorMessage>
           </div>
           <div>
@@ -100,7 +96,7 @@ export function Register() {
               placeholder="Insira sua senha"
               {...register('password')}
               error={errors.password?.message}
-            ></Input>
+            />
             <ErrorMessage>{errors.password?.message}</ErrorMessage>
           </div>
           <div>
@@ -110,18 +106,18 @@ export function Register() {
               placeholder="Insira sua senha"
               {...register('confirmPassword')}
               error={errors.confirmPassword?.message}
-            ></Input>
+            />
             <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
           </div>
-          <Button type="submit">Sing up</Button>
+          <Button type="submit">Sign up</Button>
         </form>
         <Text>
           Já possui conta?{' '}
-          <Link to={'/login'} style={{ color: 'black' }}>
-            Sing in
-          </Link>
+          <NavSignIn to={'/login'}>
+            Sign in
+          </NavSignIn>
         </Text>
-      </ContainerItens>
-    </Container>
-  );
+      </FormContent>
+    </SignUpContainer>
+  )
 }
