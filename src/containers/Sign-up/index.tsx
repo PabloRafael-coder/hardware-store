@@ -1,7 +1,7 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
-import * as yup from 'yup'
+import { toast } from 'sonner'
+import z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import imgLogin from '../../assets/background-login.png'
 
@@ -10,32 +10,31 @@ import { api } from '../../services/api'
 
 import { SignUpContainer, FormContent, Label, Input, Text, NavSignIn } from './styles'
 
-const signUpFormSchema = yup
+const signUpFormSchema = z
   .object({
-    name: yup.string().required('Digite o seu nome'),
-    email: yup
+    name: z.string().nonempty('Por favor, preencha o campo Nome completo.'),
+    email: z.string().email({
+      message:
+        'Endereço de e-mail inválido. Por favor, insira um e-mail válido.',
+    }),
+    password: z.string().min(6, 'A senha deve conter pelo menos 6 caracteres.'),
+    confirmPassword: z
       .string()
-      .email('Digite um e-mail válido.')
-      .required('O e-mail é obrigatório.'),
-    password: yup
-      .string()
-      .required('A senha é obrigatória.')
-      .min(6, 'A senha deve ter pelo menos 6 digitos.'),
-    confirmPassword: yup
-      .string()
-      .required('Confirme a sua senha')
-      .oneOf([yup.ref('password')], 'As senhas devem ser iguais'),
+      .min(6, 'A senha deve conter pelo menos 6 caracteres.'),
   })
-  .required()
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'As senhas não coincidem. Verifique e tente novamente.',
+    path: ['confirmPassword'],
+  })
 
-type SignUpFormSchema = yup.InferType<typeof signUpFormSchema>
+type SignUpFormSchema = z.infer<typeof signUpFormSchema>
 
 export function SignUp() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpFormSchema>({ resolver: yupResolver(signUpFormSchema) })
+  } = useForm<SignUpFormSchema>({ resolver: zodResolver(signUpFormSchema) })
 
   async function handleSignUpForm(data: SignUpFormSchema) {
     try {
