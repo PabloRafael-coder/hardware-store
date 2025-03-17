@@ -11,11 +11,9 @@ import { api } from '../../services/api'
 import {
   Container,
   ContainerItens,
-  Input,
   LoginDetails,
   FormContainer,
   SingUp,
-  ContainerImage,
 } from './styles'
 
 const loginSchema = z.object({
@@ -34,7 +32,7 @@ export function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitted },
+    formState: { errors },
   } = useForm<LoginFormSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -64,9 +62,8 @@ export function Login() {
 
   return (
     <Container>
-      <ContainerImage>
         <img src={hardwareLogin} alt="Imagem de login" />
-      </ContainerImage>
+
       <ContainerItens>
         <LoginDetails>
           <h1>Acessar conta</h1>
@@ -88,13 +85,7 @@ export function Login() {
             error={errors.password?.message}
           />
 
-          <Button
-            style={{ marginTop: '1.5rem' }}
-            type="submit"
-            disabled={isSubmitted}
-          >
-            Acessar conta
-          </Button>
+          <Button type="submit">Acessar conta</Button>
         </FormContainer>
 
         <SingUp to={'/cadastro'}>Criar uma nova conta</SingUp>
