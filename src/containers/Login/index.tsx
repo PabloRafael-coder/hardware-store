@@ -58,7 +58,7 @@ export function Login() {
         else history.push('/')
       }, 1500)
     } catch {
-      toast.error('Erro ao tentar fazer login. Tente novamente!')
+      toast.error('Erro ao fazer login. Verifique sua senha e tente novamente.')
     }
   }
 
@@ -97,9 +97,7 @@ export function Login() {
           </Button>
         </FormContainer>
 
-        <SingUp to={'/cadastro'} style={{ color: 'black' }}>
-          Criar uma nova conta
-        </SingUp>
+        <SingUp to={'/cadastro'}>Criar uma nova conta</SingUp>
       </ContainerItens>
     </Container>
   )
