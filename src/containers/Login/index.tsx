@@ -16,6 +16,8 @@ import {
   SingUp,
 } from './styles'
 
+import { TextInput } from '@/components/TextInput'
+
 const loginSchema = z.object({
   email: z
     .string()
@@ -71,18 +73,18 @@ export function Login() {
         </LoginDetails>
 
         <FormContainer noValidate onSubmit={handleSubmit(handleLoginForm)}>
-          <Input
+          <TextInput
             type="email"
             placeholder="E-mail"
             {...register('email')}
-            error={errors.email?.message}
+            error={errors.email}
           />
 
-          <Input
+          <TextInput
             type="password"
             placeholder="Senha"
             {...register('password')}
-            error={errors.password?.message}
+            error={errors.password}
           />
 
           <Button type="submit">Acessar conta</Button>
