@@ -6,20 +6,14 @@ export const Container = styled.div`
   display: flex;
   height: 100vh;
   position: relative;
-`
-
-export const ContainerImage = styled.div`
-  display: flex;
-  width: 100%;
-  padding: 1rem;
 
   img {
-    width: 100%;
-    border-radius: 0.25rem;
+    padding: 1rem;
+    border-radius: 1.25rem;
+    width: 50vw;
     object-fit: cover;
   }
 `
-
 export const ContainerItens = styled.div`
   display: flex;
   align-items: center;
@@ -28,7 +22,6 @@ export const ContainerItens = styled.div`
   gap: 1.5rem;
   width: 100%;
 `
-
 export const LoginDetails = styled.div`
   text-align: center;
 
@@ -42,13 +35,11 @@ export const LoginDetails = styled.div`
     color: gray;
   }
 `
-
 export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 `
-
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string
 }
@@ -73,6 +64,7 @@ export const SingUp = styled(Link)`
   font-weight: 500;
   text-decoration: none;
   background-color: rgb(230, 230, 230);
+  color: #000;
 
   &:hover {
     transition: background-color 2s;
