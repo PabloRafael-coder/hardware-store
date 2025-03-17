@@ -9,6 +9,7 @@ export const ButtonContainer = styled.button`
   font-weight: 500;
   cursor: pointer;
   color: #e3e3e3;
+  width: 100%;
 
   &:hover {
     transition: 2s;
