@@ -2,23 +2,63 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const SignUpContainer = styled.div`
-  width: 100%;
-  height: 100vh;
   display: flex;
+  height: 100vh;
 
   img {
-    object-fit: contain;
-    width: 40%;
+    padding: 1rem;
+    border-radius: 1.25rem;
+    width: 50vw;
+    object-fit: cover;
   }
 `
 
-export const FormContent = styled.div`
+export const ItemsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+
+  p {
+    font-size: 0.875rem;
+    color: gray;
+    max-width: 21rem;
+    text-align: center;
+  }
+
+  a {
+    text-underline-position: under;
+    color: #000;
+  }
+`
+
+export const SignUpDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    font-size: 1.5rem;
+    letter-spacing: -0.025em;
+  }
+
+  p {
+    font-size: 0.875rem;
+  }
+`
+
+export const FormContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  padding: 20px 50px;
-  width: 100%;
+
+  form {
+    width: 100%;
+  }
 
   h1 {
     margin-bottom: 0;
@@ -28,9 +68,6 @@ export const FormContent = styled.div`
 
 export const Label = styled.label`
   display: block;
-  font-weight: 700;
-  margin-top: 20px;
-  margin-bottom: 8px;
 `
 
 interface InputProps {
@@ -66,6 +103,21 @@ export const ErrorMessage = styled.p`
   color: #ff0000;
 `
 
-export const NavSignIn = styled(Link)`
-  color: #000
+export const NavSignUp = styled(Link)`
+  position: absolute;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  top: 2rem;
+  right: 2rem;
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  background-color: rgb(230, 230, 230);
+  color: #000;
+
+  &:hover {
+    transition: background-color 2s;
+    background-color: rgb(199, 199, 199);
+  }
 `

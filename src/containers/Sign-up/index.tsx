@@ -3,12 +3,18 @@ import { toast } from 'sonner'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import imgLogin from '../../assets/background-login.png'
+import signUp from '../../assets/signup-logo.avif'
 
-import { Button, ErrorMessage } from '../../components'
+import { Button, TextInput } from '../../components'
 import { api } from '../../services/api'
 
-import { SignUpContainer, FormContent, Label, Input, Text, NavSignIn } from './styles'
+import {
+  SignUpContainer,
+  FormContainer,
+  NavSignUp,
+  ItemsContainer,
+  SignUpDetails,
+} from './styles'
 
 const signUpFormSchema = z
   .object({
@@ -56,7 +62,6 @@ export function SignUp() {
           toast.error('Email já cadastrado! Faça login para continuar')
           break
       }
-      
     } catch (error) {
       toast.error('O sistema falhou, tente novamente!')
     }
@@ -64,59 +69,63 @@ export function SignUp() {
 
   return (
     <SignUpContainer>
-      <img src={imgLogin} alt="Imagem de login" />
-      <FormContent>
-        <h1>Cadastre-se</h1>
-        <form noValidate onSubmit={handleSubmit(handleSignUpForm)}>
-          <div>
-            <Label>Nome</Label>
-            <Input
-              type="text"
-              placeholder="Insira seu nome"
-              {...register('name')}
-              error={errors.name?.message}
-            />
-            <ErrorMessage>{errors.name?.message}</ErrorMessage>
-          </div>
-          <div>
-            <Label>Email</Label>
-            <Input
-              type="email"
-              placeholder="email@example.com"
-              {...register('email')}
-              error={errors.email?.message}
-            />
-            <ErrorMessage>{errors.email?.message}</ErrorMessage>
-          </div>
-          <div>
-            <Label>Senha</Label>
-            <Input
-              type="password"
-              placeholder="Insira sua senha"
-              {...register('password')}
-              error={errors.password?.message}
-            />
-            <ErrorMessage>{errors.password?.message}</ErrorMessage>
-          </div>
-          <div>
-            <Label>Confirmar senha</Label>
-            <Input
-              type="password"
-              placeholder="Insira sua senha"
-              {...register('confirmPassword')}
-              error={errors.confirmPassword?.message}
-            />
-            <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
-          </div>
-          <Button type="submit">Sign up</Button>
-        </form>
-        <Text>
-          Já possui conta?{' '}
-          <NavSignIn to={'/login'}>
-            Sign in
-          </NavSignIn>
-        </Text>
-      </FormContent>
+      <ItemsContainer>
+        <SignUpDetails>
+          <h1>Cadastre-se</h1>
+          <p>Crie sua conta agora e explore nossos produtos!</p>
+        </SignUpDetails>
+
+        <FormContainer>
+          <form noValidate onSubmit={handleSubmit(handleSignUpForm)}>
+            <div>
+              <TextInput
+                type="text"
+                placeholder="Nome completo*"
+                {...register('name')}
+                error={errors?.name}
+              />
+            </div>
+            <div>
+              <TextInput
+                type="email"
+                placeholder="E-mail*"
+                {...register('email')}
+                error={errors?.email}
+              />
+            </div>
+            <div>
+              <TextInput
+                type="password"
+                placeholder="Crie sua senha*"
+                {...register('password')}
+                error={errors.password}
+              />
+            </div>
+            <div>
+              <TextInput
+                type="password"
+                placeholder="Confirme sua senha*"
+                {...register('confirmPassword')}
+                error={errors.confirmPassword}
+              />
+            </div>
+            <Button type="submit">Continue</Button>
+          </form>
+          <NavSignUp to={'/login'}>Acessar conta</NavSignUp>
+        </FormContainer>
+        <p className="px-6 text-center text-sm leading-relaxed text-muted-foreground">
+          Ao continuar, você concorda com nossos{' '}
+          <a className="underline underline-offset-4" href="">
+            termos de serviço
+          </a>{' '}
+          e{' '}
+          <a className="underline underline-offset-4" href="">
+            políticas de privacidade
+          </a>
+          .
+        </p>
+      </ItemsContainer>
+      <img src={signUp} alt="Imagem de login" />
     </SignUpContainer>
   )
 }
