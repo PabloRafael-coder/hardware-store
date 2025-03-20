@@ -1,7 +1,6 @@
-import React from 'react';
+import { CartItems, CartResume } from '../../components'
+import { Container, ContainerItems } from './styles'
 
-import { CartItems, CartResume } from '../../components';
-import { Container, ContainerItems } from './styles';
 export function Cart() {
   return (
     <Container>
@@ -10,5 +9,5 @@ export function Cart() {
         <CartResume />
       </ContainerItems>
     </Container>
-  );
+  )
 }
