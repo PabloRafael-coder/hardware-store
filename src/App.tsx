@@ -6,7 +6,7 @@ import { Toaster } from 'sonner'
 function App() {
   return (
     <>
-      <Toaster autoClose={2000} />
+      <Toaster />
       <AppProvider>
         <Routes />
       </AppProvider>

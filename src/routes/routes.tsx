@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom/';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom/'
 
-import paths from '../constants/paths';
-import { Home, Login, Product, SignUp, Cart, Admin } from '../containers';
-import PrivateRoute from './private-route';
+import paths from '../constants/paths'
+import { Home, Login, Product, SignUp, Cart, Admin } from '../containers'
+import PrivateRoute from './private-route'
 
 function Routes() {
   return (
@@ -20,7 +20,7 @@ function Routes() {
         <PrivateRoute component={Admin} path={paths.EditProduct} isAdmin />
       </Switch>
     </Router>
-  );
+  )
 }
 
-export default Routes;
+export default Routes

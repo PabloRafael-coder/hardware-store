@@ -64,7 +64,7 @@ export function Login() {
 
   return (
     <Container>
-        <img src={hardwareLogin} alt="Imagem de login" />
+      <img src={hardwareLogin} alt="Imagem de login" />
 
       <ContainerItens>
         <LoginDetails>

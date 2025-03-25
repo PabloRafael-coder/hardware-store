@@ -6,28 +6,39 @@ import {
   type ReactNode,
 } from 'react'
 
-export interface Cart {
+interface Category {
   id: number
   name: string
+}
+
+export interface Product {
+  category: Category
+
+  id: number
+  name: string
+  price: number
   offer: boolean
   path: string
-  price: number
-  quantity: number
   url: string
+  category_id: number
   createdAt: string
   updatedAt: string
 }
 
+export interface CartItem extends Product {
+  quantity: number
+}
+
 interface CartContextProps {
-  cartProducts: Cart[]
-  putProductInCart: (product: Cart) => void
+  cart: CartItem[]
+  putProductInCart: (product: Product) => void
   increaseProduct: (itemId: number) => void
   decreaseProduct: (itemId: number) => void
 }
 
 const CartContext = createContext({} as CartContextProps)
 
-const updateLocalStorage = async (product: Cart[]) => {
+const updateLocalStorage = async (product: Product[]) => {
   localStorage.setItem('hardware:cartInfo', JSON.stringify(product))
 }
 
@@ -36,32 +47,35 @@ interface CartProviderProps {
 }
 
 export function CartProvider({ children }: CartProviderProps) {
-  const [cartProducts, setCartProducts] = useState<Cart[]>([])
+  const [cart, setCart] = useState<CartItem[]>([])
 
-  const putProductInCart = async (product: Cart) => {
-    const cartIndex = cartProducts.findIndex((prod) => prod.id === product.id)
-    let newCartProducts = []
+  const putProductInCart = async (product: Product) => {
+    setCart((state) => {
+      const findProduct = state.find((item) => {
+        return item.id === product.id
+      })
 
-    if (cartIndex >= 0) {
-      newCartProducts = cartProducts
+      if (findProduct) {
+        const updateProduct = state.map((item) => {
+          return item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        })
 
-      newCartProducts[cartIndex].quantity =
-        newCartProducts[cartIndex].quantity + 0
-      setCartProducts(newCartProducts)
-    } else {
-      product.quantity = 1
-      newCartProducts = [...cartProducts, product]
-      setCartProducts(newCartProducts)
-    }
+        updateLocalStorage(updateProduct)
 
-    updateLocalStorage(newCartProducts)
+        return updateProduct
+      }
+
+      return [...state, { ...product, quantity: 1 }]
+    })
   }
 
   useEffect(() => {
     const loadUserData = async () => {
       const clientCartData = localStorage.getItem('hardware:cartInfo')
       if (clientCartData) {
-        setCartProducts(JSON.parse(clientCartData))
+        setCart(JSON.parse(clientCartData))
       }
     }
 
@@ -69,37 +83,35 @@ export function CartProvider({ children }: CartProviderProps) {
   }, [])
 
   const increaseProduct = async (itemId: number) => {
-    const addProduct = cartProducts.map((product) => {
-      return itemId === product.id
-        ? { ...product, quantity: product.quantity + 1 }
-        : product
-    })
+    setCart((state) => {
+      const updateIncrease = state.map((item) => {
+        return item.id === itemId
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      })
+      updateLocalStorage(updateIncrease)
 
-    setCartProducts(addProduct)
-    updateLocalStorage(addProduct)
+      return updateIncrease
+    })
   }
 
   const deleteProductCart = async (itemId: number) => {
-    const productFiltered = cartProducts.filter(
-      (product) => product.id !== itemId,
-    )
-    setCartProducts(productFiltered)
+    const productFiltered = cart.filter((product) => product.id !== itemId)
+    setCart(productFiltered)
     updateLocalStorage(productFiltered)
   }
 
   const decreaseProduct = async (itemId: number) => {
-    const indexProduct = cartProducts.findIndex(
-      (product) => product.id === itemId,
-    )
+    const indexProduct = cart.findIndex((product) => product.id === itemId)
 
-    if (cartProducts[indexProduct].quantity > 1) {
-      const newProduct = cartProducts.map((product) => {
+    if (cart[indexProduct].quantity > 1) {
+      const newProduct = cart.map((product) => {
         return product.id === itemId
           ? { ...product, quantity: product.quantity - 1 }
           : product
       })
 
-      setCartProducts(newProduct)
+      setCart(newProduct)
       updateLocalStorage(newProduct)
     } else {
       deleteProductCart(itemId)
@@ -110,7 +122,7 @@ export function CartProvider({ children }: CartProviderProps) {
     <CartContext.Provider
       value={{
         putProductInCart,
-        cartProducts,
+        cart,
         increaseProduct,
         decreaseProduct,
       }}
