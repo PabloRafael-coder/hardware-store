@@ -33,6 +33,21 @@ interface Category {
   name: string
 }
 
+interface HistoryProduct {
+  product: {
+    category: Category
+    id: number
+    category_id: number
+    name: string
+    price: number
+    offer: boolean
+    path: string
+    url: string
+    createdAt: string
+    updatedAt: string
+  }
+}
+
 function EditProduct() {
   const [nameLabelUpload, setNameLabelUpload] = useState<string | null>('')
   const [categories, setCategories] = useState<Category[]>()
@@ -41,7 +56,7 @@ function EditProduct() {
     location: {
       state: { product },
     },
-  } = useHistory()
+  } = useHistory<HistoryProduct>()
 
   const {
     register,
@@ -128,7 +143,7 @@ function EditProduct() {
                   {...field}
                   options={categories}
                   getOptionLabel={(cat) => cat.name}
-                  getOptionValue={(cat) => cat.id}
+                  getOptionValue={(cat) => cat.id.toString()}
                   defaultValue={product.category}
                 />
               )
