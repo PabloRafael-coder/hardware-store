@@ -1,36 +1,36 @@
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
-import { useCart } from '../../hooks/CartContext';
-import { api } from '../../services/api';
-import { formatCurrency } from '../../utils/formatCurrency';
-import { Button } from '../Button';
-import { Container } from './styles';
+import { useCart } from '../../hooks/CartContext'
+import { api } from '../../services/api'
+import { formatCurrency } from '../../utils/formatCurrency'
+import { Button } from '../Button'
+import { Container } from './styles'
 
 export function CartResume() {
-  const [finalPrice, setFinalPrice] = useState(0);
-  const [taxDelivery] = useState(5);
+  const [finalPrice, setFinalPrice] = useState(0)
+  const [taxDelivery] = useState(5)
 
-  const { cartProducts } = useCart();
+  const { cart } = useCart()
 
   useEffect(() => {
-    const sumAllProduct = cartProducts.reduce((acc, product) => {
-      return product.price * product.quantity + acc;
-    }, 0);
+    const sumAllProduct = cart.reduce((acc, product) => {
+      return product.price * product.quantity + acc
+    }, 0)
 
-    setFinalPrice(sumAllProduct);
-  }, [cartProducts]);
+    setFinalPrice(sumAllProduct)
+  }, [cart])
 
   const submitOrder = async () => {
-    const order = cartProducts.map(product => {
-      return { id: product.id, quantity: product.quantity };
-    });
+    const order = cart.map((product) => {
+      return { id: product.id, quantity: product.quantity }
+    })
     await toast.promise(api.post('orders', { products: order }), {
       pending: 'Pedido sendo realizado, aguarde!',
       success: 'Pedido realizado com sucesso!',
-      error: 'Pedido não realizado!'
-    });
-  };
+      error: 'Pedido não realizado!',
+    })
+  }
 
   return (
     <Container>
@@ -53,5 +53,5 @@ export function CartResume() {
         <Button onClick={() => submitOrder()}>Finalizar Pedido</Button>
       </>
     </Container>
-  );
+  )
 }

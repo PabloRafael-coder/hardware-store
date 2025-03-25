@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
@@ -8,7 +8,7 @@ export const Container = styled.div`
   gap: 20px;
   border-radius: 10px;
   background-color: #ffffff;
-`;
+`
 
 export const Header = styled.div`
   display: grid;
@@ -17,7 +17,7 @@ export const Header = styled.div`
   font-weight: 700;
   padding: 10px;
   border-bottom: 1px solid #e3e3e3;
-`;
+`
 
 export const Body = styled.div`
   display: grid;
@@ -59,9 +59,9 @@ export const Body = styled.div`
     font-size: 20px;
     cursor: pointer;
   }
-`;
+`
 
 export const Empty = styled.p`
   text-align: center;
   font-weight: 700;
-`;
+`

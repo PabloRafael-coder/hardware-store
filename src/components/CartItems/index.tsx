@@ -1,9 +1,9 @@
-import { useCart } from '../../hooks/CartContext';
-import { formatCurrency } from '../../utils/formatCurrency';
-import { Container, Header, Body, Empty } from './styles';
+import { useCart } from '../../hooks/CartContext'
+import { formatCurrency } from '../../utils/formatCurrency'
+import { Container, Header, Body, Empty } from './styles'
 
 export function CartItems() {
-  const { cartProducts, increaseProduct, decreaseProduct } = useCart();
+  const { cart, increaseProduct, decreaseProduct } = useCart()
   return (
     <Container>
       <Header>
@@ -14,10 +14,10 @@ export function CartItems() {
         <p>Total</p>
       </Header>
 
-      {cartProducts.length > 0 ? (
-        cartProducts.map(product => (
+      {cart.length > 0 ? (
+        cart.map((product) => (
           <Body key={product.id}>
-            <img src={product.url}></img>
+            <img src={product.url} alt=""></img>
             <p className="product-name">{product.name}</p>
             <p>{formatCurrency(product.price)}</p>
             <div className="quantifyGrid">
@@ -37,5 +37,5 @@ export function CartItems() {
         <Empty>Carrinho vazio</Empty>
       )}
     </Container>
-  );
+  )
 }
