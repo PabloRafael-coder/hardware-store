@@ -1,60 +1,57 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import styled from 'styled-components'
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+export const NavigationTrigger = styled(NavigationMenu.Trigger)``
+
+export const ButtonContainer = styled.div`
+  display: inline-flex;
   align-items: center;
-  background-color: #e5e5e5;
-  width: 100%;
-  padding: 35px 0 35px;
-`;
-
-export const ContainerItens = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  border: none;
-  padding: 15px;
-  width: 290px;
-  height: 350px;
-  background-color: #ffffff;
-  margin: 15px;
-`;
-
-export const Image = styled.img`
-  width: 100%;
-  height: 80%;
-  border-radius: 15px;
-  object-fit: contain;
-`;
-
-export const Button = styled(Link)`
-  width: 150px;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: 700;
-  background-color: #1e90ff;
-  color: #ffffff;
-
+  gap: 0.25rem;
   cursor: pointer;
 
-  &:active {
-    opacity: 0.6;
+  p {
+    font-size: 0.875rem;
+    color: ${(props) => props.theme['--base-link']};
   }
 
-  text-decoration: none;
-  text-align: center;
-`;
+  &[data-state='open'] > svg {
+    transform: rotate(180deg);
+    transition: transform 1s;
+  }
 
-export const H1 = styled.h1`
-  text-transform: uppercase;
-  text-align: center;
-  color: #1e90ff;
-  margin-top: 30px;
-  font-size: 40px;
-`;
+  svg {
+    transition: transform 1s;
+  }
+`
+export const NavigationContent = styled(NavigationMenu.Content)`
+  position: absolute;
+  width: 15rem;
+  padding: 0.25rem;
+  top: 25px;
+
+  border: 1px solid ${(props) => props.theme['--base-border']};
+  border-radius: 4px;
+
+  background: ${(props) => props.theme['--white']};
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1);
+`
+export const CategoryList = styled.ul`
+  display: flex;
+  flex-direction: column;
+`
+export const ListItem = styled.li`
+  font-size: 0.875rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid transparent;
+
+  color: ${(props) => props.theme['--base-link']};
+
+  &:hover {
+    background: ${(props) => props.theme['--base-hover']};
+    border: 1px solid ${(props) => props.theme['--base-border']};
+  }
+`

@@ -1,59 +1,55 @@
-import { useEffect, useState } from 'react';
-import Carousel from 'react-elastic-carousel';
+import { CaretDown } from '@phosphor-icons/react'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import { useEffect, useState } from 'react'
 
-
-import { api } from '../../services/api';
-import { Container, H1, ContainerItens, Image, Button } from './styles';
+import { api } from '../../services/api'
+import {
+  ButtonContainer,
+  CategoryList,
+  ListItem,
+  NavigationContent,
+  NavigationTrigger,
+} from './styles'
 
 interface Category {
   id: number
   name: string
-  createdAt: string
-  url: string
-  path: string
 }
 
-
 export function Category() {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[]>([])
 
   useEffect(() => {
     async function fetchCategories() {
-      const { data } = await api.get('categories');
+      const { data } = await api.get('categories')
 
-      setCategories(data);
+      setCategories(data)
     }
 
-    fetchCategories();
-  }, []);
-
-  const breakpoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 400, itemsToShow: 2 },
-    { width: 600, itemsToShow: 3 },
-    { width: 900, itemsToShow: 4 },
-    { width: 1300, itemsToShow: 5 }
-  ];
+    fetchCategories()
+  }, [])
 
   return (
-    <Container>
-      <H1>Categorias</H1>
-      <Carousel
-        itemsToShow={5}
-        style={{ width: '90%' }}
-        breakPoints={breakpoints}
-      >
-        {categories && categories.map(category => (
-          <ContainerItens key={category.id}>
-            <Image src={category.url} />
-            <Button
-              to={{ pathname: '/produtos', state: { categoryId: category.id } }}
-            >
-              {category.name}
-            </Button>
-          </ContainerItens>
-        ))}
-      </Carousel>
-    </Container>
-  );
+    <NavigationMenu.List>
+      <NavigationMenu.Item>
+        <NavigationTrigger asChild>
+          <ButtonContainer>
+            <p>Categorias</p>
+            <CaretDown size={12} weight="fill" aria-hidden />
+          </ButtonContainer>
+        </NavigationTrigger>
+
+        <NavigationContent>
+          <CategoryList>
+            {categories &&
+              categories.map((item) => (
+                <ListItem key={item.id}>
+                  <p>{item.name}</p>
+                </ListItem>
+              ))}
+          </CategoryList>
+        </NavigationContent>
+      </NavigationMenu.Item>
+    </NavigationMenu.List>
+  )
 }

@@ -1,35 +1,70 @@
-import styled from 'styled-components';
+import { NavLink } from 'react-router-dom'
+import styled from 'styled-components'
 
-export const Container = styled.div`
+export const HeaderContainer = styled.header`
+  max-width: min(80rem, (100% - 1.5rem * 2));
+  margin: 0 auto;
+
   display: flex;
-  justify-content: space-around;
+  gap: 1rem;
+  justify-content: space-between;
   align-items: center;
-  height: 65px;
-  background-color: #ffffff;
-`;
+  padding: 1rem 0;
 
-export const ContainerLeft = styled.div`
+  @media only screen and (max-width: 375px) {
+    max-width: min(375px - 1.5rem * 2);
+  }
+`
+export const LogoNavContainer = styled.div`
   display: flex;
-  gap: 4rem;
-`;
-
-interface PageLinkProps {
-  isActive?: boolean
-}
-
-export const PageLink = styled.a<PageLinkProps>`
-  cursor: pointer;
-  font-weight: ${props => (props.isActive ? '700' : '')};
-  color: ${props => (props.isActive ? '#1E90FF' : '#696969')};
-`;
-
-export const ContainerRight = styled.div`
-  display: flex;
-  align-items: center;
   gap: 2rem;
-`;
+  margin-right: auto;
+`
+export const HeaderLogo = styled.div`
+  h1 {
+    text-transform: uppercase;
+    font-size: 1rem;
+    color: ${(props) => props.theme['--base-title']};
+  }
 
-export const DivisionLine = styled.div`
-  border-right: 0.5px solid silver;
-  height: 2.5rem;
-`;
+  span {
+    color: ${(props) => props.theme['--white']};
+    background: ${(props) => props.theme['--black']};
+    padding: 0 0.25rem;
+    border-radius: 4px;
+  }
+`
+export const NavList = styled.ul`
+  display: flex;
+  gap: 1.5rem;
+
+  li {
+    list-style: none;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  @media (width <= 40rem) {
+    display: none;
+  }
+`
+export const IconContainer = styled.div`
+  display: inline-flex;
+  line-height: 0;
+  gap: 1rem;
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+`
+
+export const ContentLink = styled(NavLink)`
+  display: inline-flex;
+  font-size: 0.875rem;
+  color: ${(props) => props.theme['--base-link']};
+  cursor: pointer;
+`
