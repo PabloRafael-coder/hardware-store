@@ -1,55 +1,51 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
-  min-height: 100vh;
-  background-color: #d3d3d3;
+export const ProductContainer = styled.main`
+  max-width: min(80rem, (100% - 1.5rem * 2));
+  margin: 0 auto;
 `
 
-export const ContainerCategories = styled.div`
+export const ItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 15rem;
-  background-color: #ffffff;
-  padding: 30px;
-  margin-right: 3rem;
-  border-radius: 5px;
-  gap: 2rem;
 `
 
-export const ContainerMain = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 3rem;
+export const CategoriesContainer = styled.div`
+  width: 100%;
+  display: inline-flex;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
 `
 
-interface ButtonProps {
+interface CartButtonProps {
   isActiveColor: boolean
 }
 
-export const Button = styled.button<ButtonProps>`
-  border: none;
-  background: none;
-  font-size: 0.9rem;
-  font-weight: ${(props) => (props.isActiveColor ? '700' : '')};
+export const CartButton = styled.button<CartButtonProps>`
+  width: 100%;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.6;
   text-transform: uppercase;
-  color: ${(props) => (props.isActiveColor ? '#ffffff' : '')};
-  background-color: ${(props) => props.isActiveColor && ' #00bfff'};
-  border-radius: 5px;
-  line-height: 40px;
+  background: none;
+  border-radius: 4px;
+  color: ${(props) =>
+    props.isActiveColor
+      ? props.theme['--gray-100']
+      : props.theme['--base-link']};
+  background-color: ${(props) => props.isActiveColor && props.theme['--black']};
+  border: 1px solid transparent;
   cursor: pointer;
 
   &:hover {
-    opacity: 0.8;
+    background-color: ${(props) =>
+      !props.isActiveColor && props.theme['--base-hover']};
   }
 `
 
-export const ImgContainer = styled.img`
-  width: 100%;
-`
-
-export const ContainerProducts = styled.div`
+export const ProductGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 15rem);
-  gap: 30px;
-  justify-content: center;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 3rem;
+  gap: 1rem;
 `

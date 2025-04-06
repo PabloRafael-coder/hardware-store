@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react'
 
-import LogoHome from '../../assets/home-logo.png'
-import { CardProducts } from '../../components/CardProducts'
+import { ProductCard } from '../../components/ProductCard'
 import { api } from '../../services/api'
 import {
-  Container,
-  ImgContainer,
-  Button,
-  ContainerCategories,
-  ContainerProducts,
-  ContainerMain,
+  CartButton,
+  CategoriesContainer,
+  ItemsContainer,
+  ProductContainer,
+  ProductGrid,
 } from './styles'
 
 export interface Products {
@@ -66,7 +64,7 @@ export function Product({ location: { state } }: ProductProps) {
     }
 
     async function fetchProducts() {
-      const { data } = await api.get('products')
+      const { data } = await api.get('/products')
       setProducts(data)
     }
     fetchProducts()
@@ -86,13 +84,11 @@ export function Product({ location: { state } }: ProductProps) {
   }, [activeCategory, products])
 
   return (
-    <Container>
-      <ImgContainer src={LogoHome} alt="Logo da página principal" />
-      <ContainerMain>
-        <ContainerCategories>
+    <ProductContainer>
+      <ItemsContainer>
+        <CategoriesContainer>
           {categories.map((category) => (
-            <Button
-              type="button"
+            <CartButton
               key={category.id}
               onClick={() => {
                 setActiveCategory(category.id)
@@ -100,17 +96,17 @@ export function Product({ location: { state } }: ProductProps) {
               isActiveColor={activeCategory === category.id}
             >
               {category.name}
-            </Button>
+            </CartButton>
           ))}
-        </ContainerCategories>
+        </CategoriesContainer>
         <div>
-          <ContainerProducts>
+          <ProductGrid>
             {filterProduct.map((product) => (
-              <CardProducts key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} />
             ))}
-          </ContainerProducts>
+          </ProductGrid>
         </div>
-      </ContainerMain>
-    </Container>
+      </ItemsContainer>
+    </ProductContainer>
   )
 }
