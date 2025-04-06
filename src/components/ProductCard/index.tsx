@@ -1,15 +1,15 @@
-import { toast } from 'react-toastify'
+import { Heart, ShoppingCart } from '@phosphor-icons/react'
+import { toast } from 'sonner'
 
 import { useCart } from '../../hooks/CartContext'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { Button } from '../Button'
-
 import {
   Container,
   ContainerItens,
-  Image,
-  NameProduct,
-  PriceProduct,
+  IconContainer,
+  ProductName,
+  ProductPrice,
 } from './styles'
 
 interface CardProductsProps {
@@ -31,25 +31,35 @@ interface CardProductsProps {
   }
 }
 
-export function CardProducts({ product }: CardProductsProps) {
+export function ProductCard({ product }: CardProductsProps) {
   const { putProductInCart } = useCart()
 
   const notifyAddProduct = () => {
-    toast.success('Item adicionado ao carrinho')
+    toast.success('Produto adicionado ao carrinho!')
   }
 
   return (
     <Container>
-      <Image src={product.url} alt="" />
+      <IconContainer>
+        <Heart size={22} />
+      </IconContainer>
+
       <ContainerItens>
-        <NameProduct>{product.name}</NameProduct>
-        <PriceProduct>{formatCurrency(product.price)}</PriceProduct>
+        <img src={product.url} alt="Imagem do produto" />
+
+        <ProductName>{product.name}</ProductName>
+        <ProductPrice>{formatCurrency(product.price)}</ProductPrice>
+        <div>
+          À vista no Pix
+          <span>ou até 10x {formatCurrency(product.price / 10)}</span>
+        </div>
         <Button
           onClick={() => {
             putProductInCart(product)
             notifyAddProduct()
           }}
         >
+          <ShoppingCart size={24} weight="fill" />
           Adicionar
         </Button>
       </ContainerItens>

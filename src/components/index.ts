@@ -1,5 +1,5 @@
 export * from './Button'
-export * from './CardProducts'
+export * from './ProductCard'
 export * from './Category'
 export * from './Offer'
 export * from './CartItems'
