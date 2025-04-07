@@ -1,7 +1,6 @@
 {
-  "name": "react-e-commerce",
-  "private": true,
-  "version": "0.0.0",
+  "name": "hardware-store",
+  "private": false,
   "type": "module",
   "scripts": {
     "dev": "vite",
