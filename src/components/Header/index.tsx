@@ -1,9 +1,7 @@
 import { Bell, ShoppingBagOpen } from '@phosphor-icons/react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { NavLink } from 'react-router-dom'
 
-import { Category } from '../Category'
 import { UserProfileModal } from '../UserProfileModal'
 import {
   ContentLink,
@@ -32,11 +30,6 @@ export function Header() {
             </li>
             <li>
               <ContentLink to="/produtos">Produtos</ContentLink>
-            </li>
-            <li>
-              <NavigationMenu.Root>
-                <Category />
-              </NavigationMenu.Root>
             </li>
           </NavList>
         </nav>
