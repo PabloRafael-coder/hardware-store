@@ -11,17 +11,26 @@ export const ItemsContainer = styled.div`
 `
 
 export const CategoriesContainer = styled.div`
-  width: 100%;
   display: inline-flex;
-  border: 1px solid #e5e7eb;
+  gap: 1rem;
   border-radius: 0.25rem;
 `
+export const CategoryButtonContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  border: 1px solid ${(props) => props.theme['--base-border']};
 
-interface CartButtonProps {
+  @media screen and (max-width: 48rem) {
+    display: none;
+  }
+`
+
+interface CaterogyButtonProps {
   isActiveColor: boolean
 }
 
-export const CartButton = styled.button<CartButtonProps>`
+export const CaterogyButton = styled.button<CaterogyButtonProps>`
   width: 100%;
   font-size: 0.875rem;
   font-weight: 700;
@@ -45,7 +54,7 @@ export const CartButton = styled.button<CartButtonProps>`
 
 export const ProductGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   margin-top: 3rem;
   gap: 1rem;
 `
