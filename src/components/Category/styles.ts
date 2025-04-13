@@ -7,11 +7,20 @@ export const ButtonContainer = styled.div`
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
+  width: 100%;
+
+  padding: 0 1rem;
+  background: ${(props) => props.theme['--black']};
+  border: 1px solid transparent;
+  border-radius: 4px;
   cursor: pointer;
 
   p {
     font-size: 0.875rem;
-    color: ${(props) => props.theme['--base-link']};
+    font-weight: 700;
+    line-height: 1.6;
+    text-transform: uppercase;
+    color: ${(props) => props.theme['--white']};
   }
 
   &[data-state='open'] > svg {
@@ -43,12 +52,19 @@ export const CategoryList = styled.ul`
 `
 export const ListItem = styled.li`
   font-size: 0.875rem;
-  padding: 0.5rem;
   cursor: pointer;
   border-radius: 4px;
   border: 1px solid transparent;
-
   color: ${(props) => props.theme['--base-link']};
+
+  button {
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    text-align: start;
+  }
 
   &:hover {
     background: ${(props) => props.theme['--base-hover']};

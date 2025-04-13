@@ -1,4 +1,7 @@
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { useEffect, useState } from 'react'
+
+import { Category } from '@/components'
 
 import { ProductCard } from '../../components/ProductCard'
 import { api } from '../../services/api'
@@ -60,6 +63,9 @@ export function Product() {
     <ProductContainer>
       <ItemsContainer>
         <CategoriesContainer>
+          <NavigationMenu.Root>
+            <Category category={categories} />
+          </NavigationMenu.Root>
           <CategoryButtonContainer>
             {categories &&
               categories.map((category) => (

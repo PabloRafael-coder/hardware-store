@@ -1,8 +1,6 @@
 import { CaretDown } from '@phosphor-icons/react'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { useEffect, useState } from 'react'
 
-import { api } from '../../services/api'
 import {
   ButtonContainer,
   CategoryList,
@@ -16,37 +14,31 @@ interface Category {
   name: string
 }
 
-export function Category() {
-  const [categories, setCategories] = useState<Category[]>([])
+interface CategoryProps {
+  category: Category[]
+}
 
-  useEffect(() => {
-    async function fetchCategories() {
-      const { data } = await api.get('categories')
-
-      setCategories(data)
-    }
-
-    fetchCategories()
-  }, [])
-
+export function Category({ category }: CategoryProps) {
   return (
     <NavigationMenu.List>
       <NavigationMenu.Item>
         <NavigationTrigger asChild>
           <ButtonContainer>
-            <p>Categorias</p>
-            <CaretDown size={12} weight="fill" aria-hidden />
+            <p>Departamentos</p>
+            <CaretDown size={12} weight="fill" aria-hidden color="#ffffff" />
           </ButtonContainer>
         </NavigationTrigger>
 
         <NavigationContent>
           <CategoryList>
-            {categories &&
-              categories.map((item) => (
-                <ListItem key={item.id}>
-                  <p>{item.name}</p>
-                </ListItem>
-              ))}
+            {category &&
+              category.map((category) => {
+                return (
+                  <ListItem key={category.id}>
+                    <button>{category.name}</button>
+                  </ListItem>
+                )
+              })}
           </CategoryList>
         </NavigationContent>
       </NavigationMenu.Item>
