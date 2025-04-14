@@ -16,9 +16,10 @@ interface Category {
 
 interface CategoryProps {
   category: Category[]
+  onActiveCategory: (categoryId: Category['id']) => void
 }
 
-export function Category({ category }: CategoryProps) {
+export function Category({ category, onActiveCategory }: CategoryProps) {
   return (
     <NavigationMenu.List>
       <NavigationMenu.Item>
@@ -35,7 +36,9 @@ export function Category({ category }: CategoryProps) {
               category.map((category) => {
                 return (
                   <ListItem key={category.id}>
-                    <button>{category.name}</button>
+                    <button onClick={() => onActiveCategory(category.id)}>
+                      {category.name}
+                    </button>
                   </ListItem>
                 )
               })}

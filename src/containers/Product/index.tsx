@@ -59,12 +59,19 @@ export function Product() {
     getCategories()
   }, [])
 
+  function handleActiveCategory(categoryId: Category['id']) {
+    setActiveCategory(categoryId)
+  }
+
   return (
     <ProductContainer>
       <ItemsContainer>
         <CategoriesContainer>
           <NavigationMenu.Root>
-            <Category category={categories} />
+            <Category
+              category={categories}
+              onActiveCategory={handleActiveCategory}
+            />
           </NavigationMenu.Root>
           <CategoryButtonContainer>
             {categories &&
